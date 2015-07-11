@@ -2,6 +2,7 @@ module Subscribem
   class Engine < ::Rails::Engine
     isolate_namespace Subscribem
     require 'warden'
+    require 'dynamic_form'
 
     config.generators do |g|
       g.test_framework :rspec, view_spec: false
