@@ -6,14 +6,14 @@ feature 'Accounts' do
 
     expect(page).to have_content(success_message)
     expect(page).to have_content("Signed in as test@test.com")
-    expect(page.current_url).to eq('http://test.example.com/subscribem/')
+    expect(page.current_url).to eq('http://test.example.com/')
   end
 
   scenario 'ensure subdomain uniqueness' do
     Subscribem::Account.create!(subdomain: 'test', name: 'Test')
     do_register_movements('Test', 'test', 'test@test.com')
 
-    expect(page.current_url).to eq('http://www.example.com/subscribem/accounts')
+    expect(page.current_url).to eq('http://www.example.com/accounts')
     expect(page).to have_content('Sorry, your account could not be created.')
     expect(page).to have_content('Subdomain has already been taken')
   end
@@ -21,7 +21,7 @@ feature 'Accounts' do
   scenario 'subdomain with restricted name' do
     do_register_movements('Test', 'admin', 'test@test.com')
 
-    expect(page.current_url).to eq('http://www.example.com/subscribem/accounts')
+    expect(page.current_url).to eq('http://www.example.com/accounts')
     expect(page).to have_content('Sorry, your account could not be created.')
     expect(page).to have_content('Subdomain is not allowed. Please choose another subdomain.')
   end
@@ -29,7 +29,7 @@ feature 'Accounts' do
   scenario 'subdomain with restricted name' do
     do_register_movements('Test', '<admin>', 'test@test.com')
 
-    expect(page.current_url).to eq('http://www.example.com/subscribem/accounts')
+    expect(page.current_url).to eq('http://www.example.com/accounts')
     expect(page).to have_content('Sorry, your account could not be created.')
     expect(page).to have_content('Subdomain is not allowed. Please choose another subdomain.')
   end
